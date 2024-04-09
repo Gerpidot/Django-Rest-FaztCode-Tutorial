@@ -1,0 +1,76 @@
+### Comandos para crear el proyecto
+
+Teniendo python instalado
+
+# Crear entorno virtual 
+
+pip instal virtualenv : Instala el modulo virtualenv globalmente
+
+#En la carpeta del proyecto
+
+pip -m virtualenv [nombreDeLaCarpeta donde se crea la virtualENV]
+
+Luego se selecciona el interprete en visual code, y debe ser el python de la venv, la carpeta creada en el proyecto.
+Asi por defecto se usara la virtual env y no es necesario usar source venv/bin/activate.
+
+#Instalamos django a la virtualenv
+
+pip install django
+
+# Creamos el projecto
+
+"django-admin startproject [nombreDelProyecto] ."
+
+# Creamos el app
+
+python manage.py startapp [nombreDelApp] #Por ejemplo "task", este comando crea la carpeta task, 
+con todos los archivos necesacios. 
+En settings.py se debe agregar el app creado en la lista de INSTALLED_APPS
+
+# Creamos las tablas de los modelos predefinidos de django
+
+python manage.py migrate # Asi se quitan los warnings de la consola
+
+# Instalamos django rest framework
+
+pip install djangorestframework
+luego se agrega la app al settings "rest_framework"
+
+#Instalamos la app cors headers, para la comunicacion entre servidores, front y back
+
+pip install django-cors-headers
+
+luego se agrega la app en setting.py "corsheaders"
+luego en los middlewares antes de "django.middleware.common.CommonMiddleware", se coloca:
+"corsheaders.middleware.CorsMiddleware", --> obtenido desde la doc de corsheaders.
+Y luego se agrega al settings.py la lista 
+CORS_ALLOWED_ORIGINS = [
+ //servidores permitidos
+ ejemplo http://localhost:3000,   
+]
+
+#Creamos el primer modelo
+
+En la carpeta task, el archivo models
+
+#Creamos el codigo necesario para crear la tabla luego
+
+python3 manage.py makemigrations [opcional el nombre del model, si no se especifica hara el de todas las apps pendientes]
+
+estp genera un archivo init con la info para crear la tabla y mas opciones
+
+# Creamos la tabla
+
+python3 manage.py migrate [nombre de la app a la que realizar las tablas en la base]
+
+
+###Dato de color para la comunicacion entre el front y back:
+Se utiliza un serializer, se crea manualmente el archivo serializer.py dentro de la app y se seleecionan que 
+atributos del modelo seran serializados.
+
+
+# Creamos el super usuario para utilizar el admin de django url/admin
+
+python manage.py createsuperuser
+
+....
